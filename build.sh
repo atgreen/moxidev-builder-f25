@@ -2,8 +2,7 @@
 
 set -x
 
-cat ./build.sh
-
+cat /root/build.sh
 
 SRPMDIR=/var/www/html
 REPODIR=/usr/local/MoxieLogic
@@ -65,7 +64,7 @@ for TARGET in moxie-elf moxiebox moxie-rtems; do
 	echo ****************************************************************
 	echo ****************************************************************
 
-	rpmbuild --define "_sourcedir `pwd`" --define "_srcrpmdir `pwd`" -ba moxielogic-repo.spec
+	rpmbuild --define "_sourcedir /root" --define "_srcrpmdir /root" -ba /root/moxielogic-repo.spec
 	mv /root/rpmbuild/RPMS/noarch/* $REPODIR;
 	
 	exit;
