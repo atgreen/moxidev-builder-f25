@@ -20,7 +20,6 @@ before_install:
   - docker run --rm -t -i -v $HOME:/usr/local atgreen/moxielogic-builder-$OS /root/build.sh
   - cat $HOME/BUILDNUM
   - find $HOME/MoxieLogic -type f
-  - touch $HOME/MoxieLogic/.done
   - if test -f $HOME/MoxieLogic/.done; then
       mv $HOME/MoxieLogic .;
       docker build -f Dockerfile.repos -t atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` .;
@@ -35,8 +34,6 @@ after_success:
       docker tag  atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM` atgreen/moxielogic-repos-$OS:latest;
       docker push atgreen/moxielogic-repos-$OS:`cat $HOME/BUILDNUM`;
       docker push atgreen/moxielogic-repos-$OS:latest;
-      echo Home is $HOME;
-      echo pwd is `pwd`;
       find `pwd`/MoxieLogic -type f;
       find `pwd`/MoxieLogic -name \*.rpm | xargs -n 1 package_cloud push MoxieLogic/moxiedev/fedora/25;
     else
